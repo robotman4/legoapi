@@ -27,10 +27,11 @@ or token is needed. These are not official public APIs and LEGO may change them 
 git clone https://github.com/robotman4/legoapi.git
 cd legoapi
 
-# API keys: one per line
 mkdir -p volumes/data volumes/cache
+
+# API keys: start from the example, then add a generated key
 cp keys.example.txt volumes/data/keys.txt
-openssl rand -hex 24          # generate a key, put it in keys.txt
+openssl rand -hex 24 >> volumes/data/keys.txt
 
 # the container runs as user nobody (uid 65534) and must be able to write the cache
 sudo chown 65534:65534 volumes/cache
@@ -38,8 +39,20 @@ sudo chown 65534:65534 volumes/cache
 docker compose up -d --build
 ```
 
-The API is now on `http://localhost:8080`. Keys are re-read on every request, so you can
-add or remove keys in `keys.txt` without restarting.
+The API is now on `http://localhost:8080`.
+
+### API keys
+
+`volumes/data/keys.txt` holds the keys that may use the API, one per line. Lines starting
+with `#` are comments, so everything copied from `keys.example.txt` is ignored and only the
+keys you add are active. The file is re-read on every request, so changes apply without a restart.
+
+```sh
+openssl rand -hex 24 >> volumes/data/keys.txt   # add a key (e.g. one per app or user)
+cat volumes/data/keys.txt                       # see your keys
+```
+
+To revoke a key, delete its line. If the file has no keys, every request is rejected.
 
 ## Usage
 

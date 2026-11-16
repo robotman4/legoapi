@@ -1,4 +1,9 @@
-# Copy to volumes/data/keys.txt next to compose.yml.
-# One API key per line; blank lines and lines starting with # are ignored.
-# Generate a key: openssl rand -hex 24
-replace-with-a-random-key
+# API keys for legoapi. Copy this file to volumes/data/keys.txt
+#
+# - One key per line. Blank lines and lines starting with # are ignored.
+# - Add a key:     openssl rand -hex 24 >> volumes/data/keys.txt
+# - Remove a key:  delete its line. Changes apply immediately, no restart needed.
+# - With no keys in the file, every request is rejected (401).
+#
+# Example (not active, it is commented out):
+# 3f9c1e7a5b2d48e6a0c4f1b9d7e2a6c8b0d4f2e1a3c5b7d9
