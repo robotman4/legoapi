@@ -1,0 +1,4 @@
+# Copy to volumes/data/keys.txt next to compose.yml.
+# One API key per line; blank lines and lines starting with # are ignored.
+# Generate a key: openssl rand -hex 24
+replace-with-a-random-key

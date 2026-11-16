@@ -1,0 +1,12 @@
+services:
+  app:
+    build: .
+    image: legoapi:latest
+    restart: always
+    # Plain HTTP on 8080. For HTTPS put your own reverse proxy in front
+    # (Traefik, Caddy, nginx, ...) and drop this port mapping if the proxy reaches the container directly.
+    ports:
+      - 8080:8080
+    volumes:
+      - ./volumes/data:/app/data:ro   # keys.txt: one API key per line, see keys.example.txt
+      - ./volumes/cache:/app/cache    # names.db: SQLite cache, safe to delete; must be writable by uid 65534 (nobody)
